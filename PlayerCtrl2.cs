@@ -16,17 +16,16 @@ public class PlayerCtrl2 : MonoBehaviour
     SpriteRenderer SRflip;
     Animator anim;
     private BoxCollider2D BoxCol;
-    [SerializeField] private LayerMask Groundlayermask;    
-    //public bool canHide = false;
+    [SerializeField] private LayerMask Groundlayermask;        
     public bool hiding = false;
     public DisablePlayer disablePLAYER;
     public GameObject PLAYER;
     public GameObject hidingPlayer;
     public bool PlayerIsDead = false;
     public GameObject hidingSign;
-    public static bool GameIsPause = false;
+    public static bool GameIsPause = false; //pause the game 
     public GameObject pauseBUTTON;       
-    public int HidingLayer = 0;
+    public int HidingLayer = 0; //to hiding behind the box
     public int normalLayer = 3;
 
     void Awake()
@@ -62,17 +61,14 @@ public class PlayerCtrl2 : MonoBehaviour
         if(hiding == true)
         {
             gameObject.layer = LayerMask.NameToLayer("HidableOBJ");
-            hidingPlayer.SetActive(false);
-            //PLAYER.layer = 0;                   
-            Debug.Log("You are Hiding behind Box");
-            
+            hidingPlayer.SetActive(false);                               
+            Debug.Log("You are Hiding behind Box");            
         }
         else 
         {
             hidingPlayer.SetActive(true);
             //PLAYER.layer = 2;
-            Debug.Log("You are not hiding");
-            
+            Debug.Log("You are not hiding");            
         }
 
         if(PlayerIsDead == true)
@@ -81,11 +77,10 @@ public class PlayerCtrl2 : MonoBehaviour
             StartCoroutine(SetDelayDead());
             anim.Play("Player_Dead");
             speedPlayer = 0;
-            Debug.Log("Player is dead");
-            
+            Debug.Log("Player is dead");            
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)) //pause the game 
         {
             if (GameIsPause)
             {
@@ -136,7 +131,7 @@ public class PlayerCtrl2 : MonoBehaviour
     public void Movestop()
     {
         rb.velocity = new Vector2(0, rb.velocity.y);
-        anim.SetInteger("condition", 0);
+        anim.SetInteger("condition", 0); //Idle
     }
     
     void OnTriggerStay2D(Collider2D collision)
@@ -153,12 +148,9 @@ public class PlayerCtrl2 : MonoBehaviour
             {
                 hiding = false;
                 hidingSign.SetActive(false);
-                SRflip.sortingOrder = normalLayer;                
-                //gameObject.layer = LayerMask.NameToLayer("MidGround");
-                //disablePLAYER.disabled = false;
+                SRflip.sortingOrder = normalLayer;                                
             }
-        }
-        
+        }        
     }
 
     public void PlayerDie()
@@ -170,14 +162,13 @@ public class PlayerCtrl2 : MonoBehaviour
     {
         RaycastHit2D raycastHit2D = Physics2D.BoxCast(BoxCol.bounds.center, BoxCol.bounds.size, 0f, Vector2.down, .1f, Groundlayermask);
         Debug.Log(raycastHit2D.collider);
-        return raycastHit2D.collider != null;
+        return raycastHit2D.collider != null; //for jumping one time only
     }
 
     IEnumerator SetDelayDead()
     {
-        yield return new WaitForSeconds(3);
-        //SceneManager.LoadScene(GoNext + 2);          
-        linkingScene.LoadScene("DeadScene");
+        yield return new WaitForSeconds(3);                
+        linkingScene.LoadScene("DeadScene");//go to next scene
         Debug.Log("Go Dead Scene");
     }
 
