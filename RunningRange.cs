@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class RunningRange : MonoBehaviour
 {
-    public EnemyScript enemyScript;
-    //public GameObject attacking;
+    public EnemyScript enemyScript;    
 
-    void OnTriggerStay2D(Collider2D running)
+    void OnTriggerStay2D(Collider2D running) //running to player if player trigger the boxcollider 
     {
         if (running.gameObject.tag == "PlayerPos")
         {            
@@ -19,15 +18,6 @@ public class RunningRange : MonoBehaviour
         {
             //enemyScript.Walking = true;            
             enemyScript.Running = false;            
-        }
-        
-        
-
-        /*else
-        {            
-            enemyScript.Running = false;
-            enemyScript.Walking = true;
-            Debug.Log("enemy lost");
-        }*/
+        }                       
     }    
 }
