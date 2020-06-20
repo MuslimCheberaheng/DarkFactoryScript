@@ -8,7 +8,7 @@ public class AttackingRange : MonoBehaviour
     //public GameObject RunningRange;
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "PlayerPos")
+        if (collision.gameObject.tag == "PlayerPos") //enemy attack the player if player is very close
         {
             //Enemyscript.speed = 0;
             //Enemyscript.Running = false;            
