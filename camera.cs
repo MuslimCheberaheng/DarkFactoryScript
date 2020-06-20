@@ -22,9 +22,7 @@ public class camra : MonoBehaviour
     //enable and set the min x
     public bool XMinEnabled = false;
     public float XMinValue = 0;
-
    
-
     void FixedUpdate() 
     {
         Vector3 targetPos = target.position;
@@ -55,15 +53,7 @@ public class camra : MonoBehaviour
         {
             targetPos.x = Mathf.Clamp(target.position.x, target.position.x, XMaxValue);
         }
-
-
-
-
-
-
-
-
-
+        
         targetPos.z = transform.position.z;//align the cam and the target z position
 
         transform.position = Vector3.SmoothDamp(transform.position,targetPos,ref velocity,smoothTime);
