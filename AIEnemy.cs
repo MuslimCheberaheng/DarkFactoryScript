@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class AIEnemy : MonoBehaviour
 {
-    [SerializeField] float CloseDistance;
+    [SerializeField] float CloseDistance; //create the range of collider 
     [SerializeField] float MidDistance;
     [SerializeField] float LongDistance;
     [SerializeField] Transform player;
-    public bool BackToPos = false;
+    public bool BackToPos = false; 
     public float DistanceToPlayer = Mathf.Infinity;
     public float DistanceToBack = Mathf.Infinity;
     Animator animate;
     public float NPC_speed;
     bool FindingPlayer = false;
     public PlayerCtrl2 playerCTRL2;
-    [SerializeField] Transform EnemyPlace;
+    [SerializeField] Transform EnemyPlace;//Enemy position
 
     void Awake()
     {
@@ -29,14 +29,15 @@ public class AIEnemy : MonoBehaviour
         if(BackToPos == true)
         {
             transform.position = Vector2.MoveTowards(transform.position, EnemyPlace.position, NPC_speed * Time.deltaTime);
+            
         }
     }
 
     public void DetectPlayer()
     {
-        DistanceToPlayer = Vector3.Distance(player.position, transform.position);
+        DistanceToPlayer = Vector3.Distance(player.position, transform.position); //Enemy move to player 
         DistanceToBack = Vector3.Distance(EnemyPlace.position, transform.position);
-        if (DistanceToPlayer <= LongDistance)
+        if (DistanceToPlayer <= LongDistance) //if player is not inside Longdistance
         {
             NPC_speed = 0;
             if (DistanceToPlayer <= MidDistance && playerCTRL2.disablePLAYER.disabled == false)
